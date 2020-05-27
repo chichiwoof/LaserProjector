@@ -1,15 +1,17 @@
 // See LICENSE file for details
 // Copyright 2016 Florian Link (at) gmx.de
 #include "Laser.h"
-
+#include <Wire.h>
 // these values can be adapted to fine tune sendto:
 
 // if this is enabled, pins need to be 10 and 7 in dac init below, but it is a big speedup!
-#define MCP4X_PORT_WRITE 1
+// #define MCP4X_PORT_WRITE 1
 
-#include "DAC_MCP4X.h"
+// #include "DAC_MCP4X.h"
 
-MCP4X dac;
+// MCP4X dac;
+#include "MCP4728.h"
+MCP4728 dac;
 
 Laser::Laser(int laserPin)
 {
@@ -38,11 +40,26 @@ Laser::Laser(int laserPin)
 
 void Laser::init()
 {
-  dac.init(MCP4X_4822, 5000, 5000,
-      10, 7, 1);
-  dac.setGain2x(MCP4X_CHAN_A, 0);
-  dac.setGain2x(MCP4X_CHAN_B, 0);
-  dac.begin(1);
+//   dac.init(MCP4X_4822, 5000, 5000,
+//       10, 7, 1);
+//   dac.setGain2x(MCP4X_CHAN_A, 0);
+//   dac.setGain2x(MCP4X_CHAN_B, 0);
+//   dac.begin(1);
+
+  Wire.begin();
+  Wire.setClock(1000000);
+  dac.attatch(Wire, 13);
+  dac.readRegisters();
+
+  dac.selectVref(MCP4728::VREF::VDD, MCP4728::VREF::VDD, MCP4728::VREF::VDD, MCP4728::VREF::VDD);
+  dac.selectPowerDown(MCP4728::PWR_DOWN::GND_100KOHM, MCP4728::PWR_DOWN::GND_100KOHM, MCP4728::PWR_DOWN::GND_100KOHM, MCP4728::PWR_DOWN::GND_100KOHM);
+  dac.selectGain(MCP4728::GAIN::X1, MCP4728::GAIN::X1, MCP4728::GAIN::X1, MCP4728::GAIN::X1);
+  dac.analogWrite(MCP4728::DAC_CH::A, 0);
+  dac.analogWrite(MCP4728::DAC_CH::B, 0);
+  dac.analogWrite(MCP4728::DAC_CH::C, 0);
+  dac.analogWrite(MCP4728::DAC_CH::D, 0);
+
+  dac.enable(true);
  
   pinMode(_laserPin, OUTPUT);
 }
@@ -62,7 +79,7 @@ void Laser::sendToDAC(int x, int y)
   #ifdef LASER_FLIP_Y
   y1 = 4095 - y1;
   #endif
-  dac.output2(x1, y1);
+  dac.analogWrite(x1, y1, 0, 3000);
 }
 
 void Laser::resetClipArea()
@@ -263,7 +280,7 @@ void Laser::on()
   {
     wait(LASER_TOGGLE_DELAY);
     _state = 1;
-    digitalWrite(_laserPin, HIGH);
+    digitalWrite(_laserPin, LOW);
   }
 }
 
@@ -273,7 +290,7 @@ void Laser::off()
   {
     wait(LASER_TOGGLE_DELAY);
     _state = 0;
-    digitalWrite(_laserPin, LOW);
+    digitalWrite(_laserPin, HIGH);
   }
 }
 
@@ -292,4 +309,3 @@ void Laser::setOffset(long offsetX, long offsetY)
   _offsetX = offsetX;
   _offsetY = offsetY;
 }
-

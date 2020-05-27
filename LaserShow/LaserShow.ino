@@ -7,8 +7,8 @@
 #include "Objects.h"
 #include "Logo.h"
 
-// Create laser instance (with laser pointer connected to digital pin 5)
-Laser laser(5);
+// Create laser instance (with laser pointer connected to digital pin 5) (9 on chichis prepre)
+Laser laser(9);
 
 void setup()
 {  
@@ -290,20 +290,20 @@ void whatAbout3D()
 // arduino + heart
 void drawWeLove()
 {
-  int w1 = Drawing::stringAdvance("ARDUINO");
+  int w1 = Drawing::stringAdvance("saskia");
   long centerX, centerY, w,h;
   Drawing::calcObjectBox(draw_heart, sizeof(draw_heart)/4, centerX, centerY, w, h);
 
-  laser.setOffset(2048,2048);
+  laser.setOffset(1348,2048);
   long maxMove = 0;
   for (int i = 0;i<300;i++) {
     laser.setMaxMove(maxMove);
     maxMove += 200;
     laser.setScale(0.4);
-    Drawing::drawString("ARDUINO",-w1/2, SIN((i*10) % 360)/100.);
+    Drawing::drawString("saskia",-w1/2, SIN((i*10) % 360)/6.);
     if (i>100) {
       laser.resetMaxMove();
-      laser.setScale(2 + SIN((i*10)%360) / 10000.);
+      laser.setScale(2 + SIN((i*10)%360) / 13000.);
       Drawing::drawObject(draw_heart, sizeof(draw_heart)/4, -centerX, -centerY);
     }
     if (i>150) {
@@ -373,24 +373,23 @@ void drawScroller(String s, float scale = 0.5, int offsetY = 2048, int speed = 1
 }
 
 void loop() {
-  countDown();
-  letterEffect();
-  presents();
-  arduino();
-  laserShow();
-  drawPlane();
-  drawLogo();
-  drawScroller(String("THIS PROJECT IS AVAILABLE ON INSTRUCTABLES.COM"),0.5,2048,100);
+//  countDown();
+//  letterEffect();
+//  presents();
+//  arduino();
+//  laserShow();
+//  drawPlane();
+//  drawLogo();
+//  drawScroller(String("THIS PROJECT IS AVAILABLE ON INSTRUCTABLES.COM"),0.5,2048,100);
   drawWeLove();
-  drawArduino2DRotate();
-  whatAbout3D();
-  rotateCube(400);
-  drawBike();
-  globe(200);
-  drawArduino3D();
-  drawScroller(String("SOURCE CODE AVAILABLE ON GITHUB!"),0.25,2048,100);
+// drawArduino2DRotate();
+//  whatAbout3D();
+//  rotateCube(400);
+//  drawBike();
+//  globe(200);
+//  drawArduino3D();
+//  drawScroller(String("SOURCE CODE AVAILABLE ON GITHUB!"),0.25,2048,100);
 
 //  drawObjects();
 //  jumpingText();
 }
-
