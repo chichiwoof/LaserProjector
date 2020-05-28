@@ -5,18 +5,26 @@
 #include <math.h>
 #include <string.h>
 
-int main()
+int main(int argc, char *argv[])
 {
+    int     numberOfArgs = argc;
+    char *arg1 = argv[0];
+    printf("argv[1] = %s\n", argv[1]);
+    
+    // char *hex[] = argv[1];
     char hex[17];
+    printf("hex = %s\n", hex);
+    strcpy(hex, argv[1]);
+    printf("hex = %s\n", hex);
     long long decimal, place;
     int i = 0, val, len;
 
     decimal = 0;
     place = 1;
 
-    /* Input hexadecimal number from user */
-    printf("Enter any hexadecimal number: ");
-    gets(hex);
+    // /* Input hexadecimal number from user */
+    // // printf("Enter any hexadecimal number: ");
+    // // gets(hex);
 
     /* Find the length of total number of hex digit */
     len = strlen(hex);

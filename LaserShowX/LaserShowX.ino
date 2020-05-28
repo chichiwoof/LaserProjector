@@ -6,6 +6,7 @@
 #include "Cube.h"
 #include "Objects.h"
 #include "Logo.h"
+#include "ilda-decoder.h"
 
 // Create laser instance (with laser pointer connected to digital pin 5) (9 on chichis prepre)
 Laser laser(9);
@@ -118,6 +119,7 @@ void loop() {
 // drawArduino2DRotate();
 //  whatAbout3D();
 //  rotateCube(400);
+//  ilda_init("Ali.ild");
   drawWoordclip();
 //  drawSaskcirc();
 
