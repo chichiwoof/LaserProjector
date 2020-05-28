@@ -250,6 +250,29 @@ void drawBike()
   }
 }
 
+void drawSaskcirc()
+{
+//int count = 100;
+//  laser.setScale(0.8);
+//  laser.setOffset(-100,1100);
+//
+//  for (int i = 0;i<count;i++) Drawing::drawObject(draw_saskcirc, sizeof(draw_saskcirc)/4);
+
+long centerX, centerY, hX, hY, w,h;
+  Drawing::calcObjectBox(draw_saskcirc, sizeof(draw_saskcirc)/4, centerX, centerY, w, h);
+  int angle = 0;
+  int x = 1400;
+  for (;x<4396;) {
+    laser.setOffset(x,2048);
+    laser.setScale(1.);
+    Drawing::drawObjectRotated(draw_saskcirc, sizeof(draw_saskcirc)/4, centerX, centerY, angle % 360);
+    angle += 2;
+//    x += 4;
+  }
+  
+  
+}
+
 void drawArduino3D()
 {
   laser.setScale(1.);
@@ -380,13 +403,14 @@ void loop() {
 //  laserShow();
 //  drawPlane();
 //  drawLogo();
-//  drawScroller(String("THIS PROJECT IS AVAILABLE ON INSTRUCTABLES.COM"),0.5,2048,100);
-  drawWeLove();
+  globe(200);
+ drawScroller(String("SASKIAN SYNTHETICS"),0.5,2048,100);
+//  drawWeLove();
 // drawArduino2DRotate();
 //  whatAbout3D();
 //  rotateCube(400);
-//  drawBike();
-//  globe(200);
+  drawSaskcirc();
+
 //  drawArduino3D();
 //  drawScroller(String("SOURCE CODE AVAILABLE ON GITHUB!"),0.25,2048,100);
 
