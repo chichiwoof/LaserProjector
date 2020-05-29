@@ -4,14 +4,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "chex",
+            "label": "chexiterate",
             "type": "shell",
             "command": "gcc",
             "args":[
                 "-g",
                 "-o",
-                "chex",
-                "chex.c"
+                "chexiterate",
+                "chexiterate.c"
             ],
             "group": {
                 "kind": "build",

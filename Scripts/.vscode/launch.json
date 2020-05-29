@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/chex.exe",
+            "program": "${workspaceFolder}/chexiterate.exe",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
