@@ -5,8 +5,9 @@
 #include "Drawing.h"
 #include "Cube.h"
 #include "Objects.h"
+#include "abolish.h"
+#include "police.h"
 #include "Logo.h"
-#include "ilda-decoder.h"
 
 // Create laser instance (with laser pointer connected to digital pin 5) (9 on chichis prepre)
 Laser laser(9);
@@ -16,21 +17,86 @@ void setup()
   laser.init();
 }
 
+const unsigned short draw_heart[] PROGMEM = {
+0x330,0x23e,
+0x82fa,0x192,
+0x825a,0xe3,
+0x81b4,0x6d,
+0x80ea,0x0,
+0x80f0,0x29,
+0x80f2,0x50,
+0x80e3,0xae,
+0x80b4,0x103,
+0x8079,0x144,
+0x803e,0x185,
+0x800f,0x1d7,
+0x8000,0x231,
+0x800f,0x285,
+0x803d,0x2c8,
+0x8083,0x2f5,
+0x80d8,0x303,
+0x8115,0x2fb,
+0x814d,0x2e2,
+0x817e,0x2b9,
+0x8198,0x284,
+0x81e9,0x2e4,
+0x8258,0x303,
+0x82a7,0x2f6,
+0x82ed,0x2cc,
+0x831f,0x28c,
+0x8330,0x23e,
+0x8330,0x23e,
+};
+
+void drawWeLove()
+{
+  int w1 = Drawing::stringAdvance("saskia");
+  long centerX, centerY, w,h;
+  Drawing::calcObjectBox(draw_heart, sizeof(draw_heart)/4, centerX, centerY, w, h);
+
+  laser.setOffset(1348,2048);
+  long maxMove = 0;
+  for (int i = 0;i<300;i++) {
+    laser.setMaxMove(maxMove);
+    maxMove += 200;
+    laser.setScale(0.4);
+    Drawing::drawString("saskia",-w1/2, SIN((i*10) % 360)/6.);
+    if (i>100) {
+      laser.resetMaxMove();
+      laser.setScale(2 + SIN((i*10)%360) / 13000.);
+      Drawing::drawObject(draw_heart, sizeof(draw_heart)/4, -centerX, -centerY);
+    }
+    if (i>150) {
+      maxMove -= 400;
+    }
+  }
+  laser.resetMaxMove();
+}
 
 
 
-
+void circle() {
+  const int scale = 12;
+  laser.sendto(SIN(0)/scale, COS(0)/scale);
+  laser.on();
+  for (int r = 5;r<=360;r+=5)
+  {    
+    laser.sendto(SIN(r)/scale, COS(r)/scale);
+  }
+  laser.off();
+}
 
 // currently unused, some more objects
 void drawObjects()
 {
-  int count = 100;
-  laser.setScale(2);
-  laser.setOffset(0,3000);
+  int count = 50;
+  laser.setScale(0.8);
+  laser.setOffset(00,00);
 
-  for (int i = 0;i<count;i++) Drawing::drawObject(draw_plane, sizeof(draw_plane)/4);
-  for (int i = 0;i<count;i++) Drawing::drawObject(draw_bike, sizeof(draw_bike)/4);
-  for (int i = 0;i<count;i++) Drawing::drawObject(draw_question, sizeof(draw_question)/4);
+    for (int i = 0;i<count;i++) Drawing::drawObject(draw_abolish, sizeof(draw_abolish)/4);
+    for (int i = 0;i<count;i++) Drawing::drawObject(draw_police, sizeof(draw_police)/4);
+//  for (int i = 0;i<count;i++) Drawing::drawObject(draw_bike, sizeof(draw_bike)/4);
+//  for (int i = 0;i<count;i++) Drawing::drawObject(draw_question, sizeof(draw_question)/4);
 }
 
 
@@ -49,6 +115,7 @@ void loop() {
 //  whatAbout3D();
 //  rotateCube(400);
 //  ilda_init("Ali.ild");
+//circle();
   drawObjects();
 //  drawSaskcirc();
 

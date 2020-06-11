@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
                 exit(1);
             }    
         }
-        if (y==13)  // checks the number of records 
+        if (y==13 || y ==15)  // checks the number of records 
         {
             // printf("y is 13 now");
             long long decimal, place;
@@ -76,8 +76,17 @@ int main(int argc, char *argv[])
                 len--;
                 
             }
-            printf("number of records is %d\n", decimal);
+            if (y==13)
+            {
+                printf("number of records is %d\n", decimal);
            records = 4*decimal;
+            }
+           else if (y==15)
+           {
+                printf("number of frames is %d\n", decimal);
+           records = records*decimal;
+                printf("number of TOTAL frames is %d\n", records);
+            }
         }
         
     }
@@ -119,6 +128,10 @@ int main(int argc, char *argv[])
 
                 decimal += val * pow(16, len);
                 len--;
+            }
+            if (decimal >= 32768)
+            {
+                decimal = (decimal-65536);
             }
 
             // printf("Hexadecimal number = %s\n", hex);
