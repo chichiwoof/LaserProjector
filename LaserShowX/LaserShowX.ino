@@ -7,7 +7,16 @@
 #include "Objects.h"
 #include "abolish.h"
 #include "police.h"
+#include "stopcops.h"
+#include "blackjoy.h"
+#include "fist.h"
+#include "pow.h"
+#include "2.h"
+#include "thepeople.h"
+#include "blacklove.h"
+#include "ftp.h"
 #include "Logo.h"
+#include "dog1.h"
 
 // Create laser instance (with laser pointer connected to digital pin 5) (9 on chichis prepre)
 Laser laser(9);
@@ -89,14 +98,80 @@ void circle() {
 // currently unused, some more objects
 void drawObjects()
 {
-  int count = 50;
+  int count = 70;
   laser.setScale(0.8);
   laser.setOffset(00,00);
 
-    for (int i = 0;i<count;i++) Drawing::drawObject(draw_abolish, sizeof(draw_abolish)/4);
-    for (int i = 0;i<count;i++) Drawing::drawObject(draw_police, sizeof(draw_police)/4);
+//    for (int i = 0;i<count;i++) Drawing::drawObject(draw_abolish, sizeof(draw_abolish)/4);
+//    for (int i = 0;i<count;i++) Drawing::drawObject(draw_police, sizeof(draw_police)/4);
+//    for (int i = 0;i<count;i++) Drawing::drawObject(draw_stopcops, sizeof(draw_stopcops)/4);
+    for (int i = 0;i<count;i++) Drawing::drawObject(draw_dog1, sizeof(draw_dog1)/4);    
+//    for (int i = 0;i<count;i++) Drawing::drawObject(draw_blacklove, sizeof(draw_blacklove)/4);
+//    for (int i = 0;i<count;i++) Drawing::drawObject(draw_blackjoy, sizeof(draw_blackjoy)/4);
+//    delay(1000);
+//    for (int i = 0;i<count;i++) Drawing::drawObject(draw_fist, sizeof(draw_fist)/4);
+//    
+//    delay(200);
+//    laser.setOffset(00,1300);
+//    for (int i = 0;i<count/3;i++) Drawing::drawObject(draw_pow, sizeof(draw_pow)/4);
+//    laser.setOffset(00,000);
+//    for (int i = 0;i<count/3;i++) Drawing::drawObject(draw_2, sizeof(draw_2)/4);
+//    for (int i = 0;i<count/2;i++) Drawing::drawObject(draw_thepeople, sizeof(draw_thepeople)/4);
+//    laser.setOffset(00,1300);
+//    for (int i = 0;i<count/3;i++) Drawing::drawObject(draw_pow, sizeof(draw_pow)/4);
+//    laser.setOffset(00,000);
+//    for (int i = 0;i<count/3;i++) Drawing::drawObject(draw_2, sizeof(draw_2)/4);
+//    for (int i = 0;i<count/2;i++) Drawing::drawObject(draw_thepeople, sizeof(draw_thepeople)/4);
+//    delay(800);
 //  for (int i = 0;i<count;i++) Drawing::drawObject(draw_bike, sizeof(draw_bike)/4);
-//  for (int i = 0;i<count;i++) Drawing::drawObject(draw_question, sizeof(draw_question)/4);
+  
+}
+
+// draws text as scroller from right to left
+void drawScroller(String s, float scale = 0.5, int offsetY = 2048, int speed = 100)
+{
+  int charW = Drawing::advance('I'); // worst case: smallest char
+  int maxChar = (4096. / (charW * scale) );
+  // some senseful max buffer, don't use a very small scale...
+  char buffer[100];
+  for (int j = 0;j<maxChar;j++) {
+    buffer[j] = ' ';
+  }
+  laser.setOffset(0,offsetY);
+  laser.setScale(scale);
+  int scrollX = 0;
+  for (int c = 0; c < s.length() + maxChar; c++) {
+    int currentScroll = Drawing::advance(buffer[0]);
+    while (scrollX < currentScroll) {
+      long time = millis();
+      int x = -scrollX;;
+      int y = 0;
+      bool somethingDrawn = false;
+      for (int i = 0;i<maxChar;i++) {
+        if (buffer[i] != ' ') {
+          somethingDrawn = true;
+        }
+        x += Drawing::drawLetter(buffer[i], x, y);
+        if (x > 4096 / scale) {
+          break;
+        }
+      }
+      if (!somethingDrawn) { scrollX = currentScroll; }
+      scrollX += speed / scale;
+      long elapsed = millis() - time;
+      if (elapsed < 50) { delay(50-elapsed); }
+
+    }
+    scrollX -= currentScroll;
+    for (int k = 0;k<maxChar-1;k++) {
+      buffer[k] = buffer[k+1];
+    }
+    if (c<s.length()) {
+      buffer[maxChar-1] = s[c];
+    } else{
+      buffer[maxChar-1] = ' ';
+    }
+  }
 }
 
 
@@ -109,7 +184,7 @@ void loop() {
 //  drawPlane();
 //  drawLogo();
 //  globe(200);
-// drawScroller(String("SASKIAN SYNTHETICS"),0.5,2048,100);
+// drawScroller(String("BLACK LIVES MATTER"),0.5,2048,100);
 //  drawWeLove();
 // drawArduino2DRotate();
 //  whatAbout3D();

@@ -1,0 +1,41 @@
+INKSCAPE TO GCODE TO LASER -
+
+use pencil tool to freehand draw 
+less individual components = faster render
+
+OR 
+
+https://online.rapidresizer.com/tracer.php
+
+trace from bitmap
+take parts needed
+path > simplify
+extensions > modify path > add nodes
+max segment length 10.0
+number of segments 2
+
+
+Biarc int 1.0
+Max splitting 1
+Pass by Pass to avoid doubletracing
+depth funct: d 
+
+
+Options
+Scale Zaxis  1.0
+Offset Zaxis 0.0
+Select all   YES
+Min arc radius 1.0
+
+
+Prefs
+Name .ngc
+Z safe height 5.0  (prolly doesnt matter)
+
+
+Then, in TERMINAL
+> cd to scripts folder
+> convertInkscapeNGC3.py gcode.ngc outfile.h
+
+Then drag outfile.h into LaserShowX project
+add #include and function into main .ino
