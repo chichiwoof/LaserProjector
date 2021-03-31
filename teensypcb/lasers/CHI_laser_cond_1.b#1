@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.6.2">
+<eagle version="9.6.1">
 <drawing>
 <settings>
-<setting alwaysvectorfont="yes"/>
+<setting alwaysvectorfont="no"/>
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
@@ -562,22 +562,14 @@ reflow soldering</description>
 </packages>
 </library>
 <library name="40xx" urn="urn:adsk.eagle:library:80">
-<description>&lt;b&gt;CMOS Logic Devices, 4000 Series&lt;/b&gt;&lt;p&gt;
-
-Based on the following sources:
-
-&lt;ul&gt;
-
-&lt;li&gt;Motorola &lt;i&gt;CMOS LOGIC DATA&lt;/i&gt;; book, 02/88, DL131 REV 1
-
-&lt;li&gt;http://www.elexp.com
-
-&lt;li&gt;http://www.intersil.com
-
-&lt;li&gt;http://www.ls3c.com.tw/product/1/COMOS.html
-
-&lt;/ul&gt;
-
+<description>&lt;b&gt;CMOS Logic Devices, 4000 Series&lt;/b&gt;&lt;p&gt;
+Based on the following sources:
+&lt;ul&gt;
+&lt;li&gt;Motorola &lt;i&gt;CMOS LOGIC DATA&lt;/i&gt;; book, 02/88, DL131 REV 1
+&lt;li&gt;http://www.elexp.com
+&lt;li&gt;http://www.intersil.com
+&lt;li&gt;http://www.ls3c.com.tw/product/1/COMOS.html
+&lt;/ul&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
 <packages>
 <package name="SO14" urn="urn:adsk.eagle:footprint:714/1" library_version="7">
@@ -1151,7 +1143,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="POPULARITY" value="2" x="0.127" y="-36.068" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="-3.429" y="-36.703" size="1.27" layer="27" ratio="10"/>
 </element>
-<element name="U$1" library="TEENSY 4.0" package="TEENSY_4.0" value="TEENSY_4.0" x="49.657" y="-23.241" smashed="yes"/>
+<element name="U$1" library="TEENSY 4.0" package="TEENSY_4.0" value="TEENSY_4.0" x="12.827" y="-49.403" smashed="yes"/>
 </elements>
 <signals>
 <signal name="+12V">
